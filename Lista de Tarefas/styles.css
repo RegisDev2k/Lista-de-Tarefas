@@ -1,0 +1,466 @@
+:root {
+    /* Modo Escuro */
+    --background-dark: #1a1a1a;
+    --text-dark: #f0f0f0;
+    --header-dark: #333;
+    --button-dark: #58d68d;
+    --button-hover-dark: #45b56c;
+    --completed-dark: #708090;
+    --scrollbar-thumb-dark: #58d68d;
+    
+    /* Modo Claro */
+    --background-light: #f0f0f0;
+    --text-light: #1a1a1a;
+    --header-light: #ddd;
+    --button-light: #ddd;
+    --button-hover-light: #45b56c;
+    --completed-light: #aaa;
+    --scrollbar-thumb-light: #58d68d;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-dark);
+    color: var(--text-dark);
+    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Cabeçalho */
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--header-dark);
+    border-bottom: 2px solid #fff;
+}
+
+h1 {
+    margin-top: 50px;
+    font-size: 2.5rem;
+    color: var(--button-dark);
+}
+
+/* Botões */
+button {
+    padding: 10px 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #fff;
+    color: var(--text-light);
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s; /* Adicionada animação de clique */
+}
+
+button:hover {
+    background-color: var(--button-hover-light);
+}
+
+button:active {
+    transform: scale(0.95); /* Animação de clique */
+}
+
+/* Input e lista de tarefas */
+.todo-input {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background-color: #222;
+}
+
+.todo-input input {
+    width: 60%;
+    padding: 10px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+
+/* Lista de tarefas */
+.todo-list {
+    margin: 20px;
+    padding: 10px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+/* Barra de rolagem animada */
+.todo-list::-webkit-scrollbar {
+    width: 10px;
+}
+
+.todo-list::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb-dark);
+    border-radius: 10px;
+}
+
+.todo-list::-webkit-scrollbar-track {
+    background-color: var(--header-dark);
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    background-color: var(--button-dark);
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    transition: transform 0.3s, background-color 0.3s;
+    cursor: grab;
+}
+
+li.dragging {
+    opacity: 0.5;
+}
+
+li:hover {
+    transform: scale(1.01);
+    background-color: #444;
+}
+
+.completed {
+    text-decoration: line-through;
+    background-color: #333333;
+}
+
+/* Filtros */
+.filters {
+    display: flex;
+    justify-content: center;
+    margin: 10px 20px;
+}
+
+.filter-btn {
+    background-color: #444;
+    color: #fff;
+    margin: 0 5px;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.filter-btn.active {
+    background-color: var(--button-dark);
+}
+
+.filter-btn:hover {
+    background-color: var(--button-hover-light);
+}
+
+/* Contador de tarefas */
+.task-counter {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 1.2rem;
+    color: #bbb;
+}
+
+footer {
+    text-align: center;
+    margin-top: auto;
+    padding: 10px;
+    background-color: var(--header-dark);
+    color: #bbb;
+    border-top: 2px solid #fff;
+}
+
+.light-theme {
+    background-color: var(--background-light);
+    color: var(--text-light);
+}
+.prompt {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    height: 150px;
+    font-family: Arial, sans-serif;
+}
+
+.prompt input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    background-color: #444;
+    color: #fff;
+}
+
+.prompt input:focus {
+    background-color: #555;
+}
+
+.prompt button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: #e74c3c;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.prompt button:hover {
+    background-color: #c0392b;
+}
+/* Toast notification */
+.toast {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.3s, bottom 0.3s;
+    display: flex;
+    align-items: center;
+}
+
+.toast.show {
+    opacity: 1;
+    bottom: 30px;
+}
+
+.toast.success {
+    background-color: #2ecc71;
+}
+
+.toast.success .toast-icon {
+    color: #fff;
+}
+
+.toast-icon {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.toast-message {
+    font-size: 16px;
+}
+
+/* Modal - fundo */
+.modal {
+    display: none; /* Inicialmente escondido */
+    position: fixed;
+    z-index: 1000; /* Aparece por cima de outros elementos */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Conteúdo do modal */
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease; /* Animação de fade */
+}
+.modal p {
+    color: #444;
+}
+/* Animação suave para o modal */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Botões do modal */
+.modal-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.modal-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s; /* Animação ao passar o mouse */
+}
+
+/* Botão confirmar */
+.modal-btn.confirm {
+    background-color: #e74c3c; /* Vermelho */
+    color: white;
+}
+
+.modal-btn.confirm:hover {
+    background-color: #c0392b;
+}
+
+/* Botão cancelar */
+.modal-btn.cancel {
+    background-color: #7f8c8d; /* Cinza */
+    color: white;
+}
+
+.modal-btn.cancel:hover {
+    background-color: #6c7a7a;
+}
+
+.toggle-button {
+    display: none; /* Esconde o checkbox */
+}
+.toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+}
+
+.toggle-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background-color: #2ecc71;
+    border-radius: 50px;
+    position: relative;
+    width: 60px;
+    height: 33px;
+    transition: background-color 0.3s ease;
+    padding: 5px;
+}
+
+.toggle-circle {
+    width: 25px;
+    height: 25px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    transition: transform 0.3s linear;
+}
+
+.toggle-text {
+    margin-left: 10px; /* Espaçamento entre o texto e o círculo */
+     /* Cor do texto padrão */
+    font-weight: bold;
+    transition: color 0.3s ease; /* Animação para a cor do texto */
+}
+
+/* Efeito quando o botão está ativado */
+
+
+.toggle-button:checked + .toggle-label .toggle-circle {
+    transform: translateX(26px); /* Move o círculo para a direita */
+}
+
+.toggle-button:checked + .toggle-label + .toggle-text {
+    color: #fff; /* Cor do texto quando ativado */
+}
+
+body.dark-theme {
+    background-color: var(--background-dark);
+    color: var(--text-dark);
+}
+
+body.dark-theme header {
+    background-color: #444;
+}
+
+body.dark-theme .todo-input {
+    background-color: #1a1a1a;
+}
+
+body.dark-theme .filter-btn {
+    background-color: #555;
+}
+
+body.dark-theme .filter-btn:hover {
+    background-color: #666;
+}
+
+body.dark-theme .filter-btn.active {
+    background-color: var(--button-dark);
+}
+
+body.dark-theme .task-counter {
+    color: #999;
+}
+
+body.dark-theme footer {
+    background-color: #444;
+    color: #fff;
+}
+
+body.light-theme {
+    background-color: var(--background-light);
+    color: var(--text-light);
+}
+
+body.light-theme header {
+    background-color: var(--header-light);
+}
+
+body.light-theme .todo-input {
+    background-color: #f0f0f0;
+}
+
+body.light-theme .filter-btn:hover {
+    background-color: #eee;
+}
+
+body.light-theme .filter-btn.active {
+    background-color: var(--button-dark);
+}
+
+body.light-theme .task-counter {
+    color: #666;
+}
+
+body.light-theme footer {
+    background-color: var(--header-light);
+    color: #666;
+}
+body.light-theme h1 {
+    color: #333;
+}
+body.light-theme footer {
+    color: #333;
+}
